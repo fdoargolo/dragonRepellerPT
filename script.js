@@ -66,7 +66,7 @@ const locations = [
   },
   {
     name: "kill monster",
-    "button text": ["Go to town square", "Go to town square", "Go to town square"],
+    "button text": ["Ir para a praça da cidade", "Ir para a praça da cidade", "Ir para a praça da cidade"],
     "button functions": [goTown, goTown, goTown],
     text: 'O monstro grita "AAAAAAAAAHSDAJLS!" e morre. Você ganha pontos de experiência e acha ouro.'
   },
@@ -80,13 +80,13 @@ const locations = [
     name: "win", 
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], 
     "button functions": [restart, restart, restart], 
-    text: "Você derrotou o dragão! VOCÊ VENCEU O GAME! &#x1F389;" 
+    text: "Você derrotou o dragão! VOCÊ VENCEU O JOGO! &#x1F389;" 
   },
   {
     name: "easter egg",
-    "button text": ["2", "8", "Go to town square?"],
+    "button text": ["2", "8", "Ir para a praça da cidade?"],
     "button functions": [pickTwo, pickEight, goTown],
-    text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
+    text: "Você achou o jogo secreto. Escolha um número entre 0 e 10. Um número será sorteado. Se você acertar o número entre os sorteados, você vence o jogo!"
   }
 ];
 
