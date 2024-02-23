@@ -4,7 +4,7 @@ let gold = 50;
 let currentWeapon = 0;
 let fighting;
 let monsterHealth;
-let inventory = ["stick"];
+let inventory = ["graveto"];
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
@@ -17,10 +17,10 @@ const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 const weapons = [
-  { name: 'stick', power: 5 },
-  { name: 'dagger', power: 30 },
-  { name: 'claw hammer', power: 50 },
-  { name: 'sword', power: 100 }
+  { name: 'graveto', power: 5 },
+  { name: 'adaga', power: 30 },
+  { name: 'martelo de mão', power: 50 },
+  { name: 'espada', power: 100 }
 ];
 const monsters = [
   {
@@ -29,12 +29,12 @@ const monsters = [
     health: 15
   },
   {
-    name: "fanged beast",
+    name: "Besta",
     level: 8,
     health: 60
   },
   {
-    name: "dragon",
+    name: "dragão",
     level: 20,
     health: 300
   }
@@ -42,45 +42,45 @@ const monsters = [
 const locations = [
   {
     name: "town square",
-    "button text": ["Go to store", "Go to cave", "Fight dragon"],
+    "button text": ["Ir para a loja", "Ir para a caverna", "Lutar com dragão"],
     "button functions": [goStore, goCave, fightDragon],
-    text: "You are in the town square. You see a sign that says \"Store\"."
+    text: "Você está na praça da cidade. Você vê um sinal que está escrito \"Loja\"."
   },
   {
     name: "store",
-    "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Go to town square"],
+    "button text": ["Compre 10 de vida (10 ouros)", "Compre arma (30 ouros)", "Ir para a praça da cidade"],
     "button functions": [buyHealth, buyWeapon, goTown],
-    text: "You enter the store."
+    text: "Você entra na loja."
   },
   {
     name: "cave",
-    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+    "button text": ["Lutar com Slime", "Lutar com Besta", "Ir para a praça da cidade"],
     "button functions": [fightSlime, fightBeast, goTown],
-    text: "You enter the cave. You see some monsters."
+    text: "Você entra na caverna e vê alguns monstros."
   },
   {
     name: "fight",
-    "button text": ["Attack", "Dodge", "Run"],
+    "button text": ["Atacar", "Desviar", "Fugir"],
     "button functions": [attack, dodge, goTown],
-    text: "You are fighting a monster."
+    text: "Você está lutando com um monstro."
   },
   {
     name: "kill monster",
     "button text": ["Go to town square", "Go to town square", "Go to town square"],
     "button functions": [goTown, goTown, goTown],
-    text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
+    text: 'O monstro grita "AAAAAAAAAHSDAJLS!" e morre. Você ganha pontos de experiência e acha ouro.'
   },
   {
     name: "lose",
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
     "button functions": [restart, restart, restart],
-    text: "You die. &#x2620;"
+    text: "VOCÊ MORREU. &#x2620;"
   },
   { 
     name: "win", 
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], 
     "button functions": [restart, restart, restart], 
-    text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;" 
+    text: "Você derrotou o dragão! VOCÊ VENCEU O GAME! &#x1F389;" 
   },
   {
     name: "easter egg",
@@ -125,7 +125,7 @@ function buyHealth() {
     goldText.innerText = gold;
     healthText.innerText = health;
   } else {
-    text.innerText = "You do not have enough gold to buy health.";
+    text.innerText = "Você não tem moedas o suficiente para isso.";
   }
 }
 
@@ -136,15 +136,15 @@ function buyWeapon() {
       currentWeapon++;
       goldText.innerText = gold;
       let newWeapon = weapons[currentWeapon].name;
-      text.innerText = "You now have a " + newWeapon + ".";
+      text.innerText = "Agora você tem " + newWeapon + ".";
       inventory.push(newWeapon);
-      text.innerText += " In your inventory you have: " + inventory;
+      text.innerText += " No seu inventário você tem: " + inventory;
     } else {
-      text.innerText = "You do not have enough gold to buy a weapon.";
+      text.innerText = "Você não tem ouro o suficiente para comprar uma arma.";
     }
   } else {
-    text.innerText = "You already have the most powerful weapon!";
-    button2.innerText = "Sell weapon for 15 gold";
+    text.innerText = "Você já tem a arma mais poderosa!";
+    button2.innerText = "Vender a arma por 15 moedas de ouro.";
     button2.onclick = sellWeapon;
   }
 }
@@ -154,10 +154,10 @@ function sellWeapon() {
     gold += 15;
     goldText.innerText = gold;
     let currentWeapon = inventory.shift();
-    text.innerText = "You sold a " + currentWeapon + ".";
-    text.innerText += " In your inventory you have: " + inventory;
+    text.innerText = "Você vendeu a " + currentWeapon + ".";
+    text.innerText += " No seu inventário você tem: " + inventory;
   } else {
-    text.innerText = "Don't sell your only weapon!";
+    text.innerText = "Não venda sua única arma!";
   }
 }
 
@@ -185,13 +185,50 @@ function goFight() {
 }
 
 function attack() {
-  text.innerText = "The " + monsters[fighting].name + " attacks.";
-  text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
+
+  //pronomes dos monstros
+
+  let monsterPronoun;
+  switch (fighting) {
+    case 0:
+      monsterPronoun = "O ";
+      break;
+    case 1:
+      monsterPronoun = "A ";
+      break;
+    case 2:
+      monsterPronoun = "O ";
+      break;
+  }
+
+  //pronome das armas
+  //poderia ter utilizado o if, deixaria o código mais curto. Porém, nesse caso, fica mais intuitivo com o switch.
+
+   let weaponPronoun;
+  switch (currentWeapon) {
+    case 0:
+      weaponPronoun = "seu ";
+      break;
+    case 1:
+      weaponPronoun = "sua ";
+      break;
+    case 2:
+      weaponPronoun = "seu ";
+      break;
+    case 3:
+      weaponPronoun = "sua ";
+      break;
+  }
+
+  text.innerText = monsterPronoun + monsters[fighting].name + " ataca! ";
+  text.innerText += "Você ataca com " + weaponPronoun + weapons[currentWeapon].name + ".";
+
+
   health -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
     monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
   } else {
-    text.innerText += " You miss.";
+    text.innerText += " Você errou.";
   }
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
@@ -205,7 +242,28 @@ function attack() {
     }
   }
   if (Math.random() <= .1 && inventory.length !== 1) {
-    text.innerText += " Your " + inventory.pop() + " breaks.";
+
+    //procurarei uma solução melhor que deixará o codigo mais limpo e organizado do que o switch
+    //porém, é apenas a primeira adaptação, deixarei com o switch para facilitar a leitura
+
+    switch (weapons){
+      case (weapons[currentWeapon] = 0):
+        text.innerText += " Seu " + inventory.pop() + " quebrou.";
+      break;
+      
+      case (weapons[currentWeapon] = 1):
+        text.innerText += " Sua " + inventory.pop() + " quebrou.";
+      break;
+      
+      case (weapons[currentWeapon] = 2):
+        text.innerText += " Seu " + inventory.pop() + " quebrou.";
+      break;
+      
+      case (weapons[currentWeapon] = 3):
+        text.innerText += " Sua " + inventory.pop() + " quebrou.";
+      break;
+  
+    }
     currentWeapon--;
   }
 }
@@ -221,7 +279,7 @@ function isMonsterHit() {
 }
 
 function dodge() {
-  text.innerText = "You dodge the attack from the " + monsters[fighting].name;
+  text.innerText = monsters[fighting].name + " te atacou, mas você desviou.";
 }
 
 function defeatMonster() {
@@ -234,6 +292,7 @@ function defeatMonster() {
 
 function lose() {
   update(locations[5]);
+  healthText.innerText = 0;
 }
 
 function winGame() {
@@ -269,16 +328,16 @@ function pick(guess) {
   while (numbers.length < 10) {
     numbers.push(Math.floor(Math.random() * 11));
   }
-  text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+  text.innerText = "Você escolheu: " + guess + ". Aqui estão os números aleatórios:\n";
   for (let i = 0; i < 10; i++) {
     text.innerText += numbers[i] + "\n";
   }
   if (numbers.includes(guess)) {
-    text.innerText += "Right! You win 20 gold!";
+    text.innerText += "Boa! Você ganhou 20 moedas de ouro!";
     gold += 20;
     goldText.innerText = gold;
   } else {
-    text.innerText += "Wrong! You lose 10 health!";
+    text.innerText += "Puts! Você perdeu 10 de vida!";
     health -= 10;
     healthText.innerText = health;
     if (health <= 0) {

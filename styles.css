@@ -9,8 +9,8 @@ body {
   }
   
   #game {
-    max-width: 500px;
-    max-height: 400px;
+    max-width: 40%;
+    max-height: 40%;
     background-color: #ffffff;
     color: #ffffff;
     margin: 30px auto 0px;
