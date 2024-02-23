@@ -142,9 +142,9 @@ function buyWeapon() {
     } else {
       text.innerText = "Você não tem ouro o suficiente para comprar uma arma.";
     }
-  } else {
+  } else if (currentWeapon === weapons.length - 1) { 
     text.innerText = "Você já tem a arma mais poderosa!";
-    button2.innerText = "Vender a arma por 15 moedas de ouro.";
+    button2.innerText = "Vender a arma por 15 moedas.";
     button2.onclick = sellWeapon;
   }
 }
@@ -188,6 +188,7 @@ function attack() {
 
   //pronomes dos monstros
 
+
   let monsterPronoun;
   switch (fighting) {
     case 0:
@@ -201,10 +202,11 @@ function attack() {
       break;
   }
 
+  
   //pronome das armas
   //poderia ter utilizado o if, deixaria o código mais curto. Porém, nesse caso, fica mais intuitivo com o switch.
 
-   let weaponPronoun;
+  let weaponPronoun;
   switch (currentWeapon) {
     case 0:
       weaponPronoun = "seu ";
@@ -223,8 +225,8 @@ function attack() {
   text.innerText = monsterPronoun + monsters[fighting].name + " ataca! ";
   text.innerText += "Você ataca com " + weaponPronoun + weapons[currentWeapon].name + ".";
 
-
   health -= getMonsterAttackValue(monsters[fighting].level);
+
   if (isMonsterHit()) {
     monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
   } else {
@@ -246,7 +248,7 @@ function attack() {
     //procurarei uma solução melhor que deixará o codigo mais limpo e organizado do que o switch
     //porém, é apenas a primeira adaptação, deixarei com o switch para facilitar a leitura
 
-    switch (weapons){
+    switch (currentWeaponweapons){
       case (weapons[currentWeapon] = 0):
         text.innerText += " Seu " + inventory.pop() + " quebrou.";
       break;
@@ -271,11 +273,11 @@ function attack() {
 function getMonsterAttackValue(level) {
   const hit = (level * 5) - (Math.floor(Math.random() * xp));
   console.log(hit);
-  return hit > 0 ? hit : 0;
+  return hit > 0 ? hit : Math.random();
 }
 
 function isMonsterHit() {
-  return Math.random() > .2 || health < 20;
+  return Math.floor(Math.random() > .2) || health < 20;
 }
 
 function dodge() {
