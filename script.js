@@ -186,41 +186,10 @@ function goFight() {
 
 function attack() {
 
-  //pronomes dos monstros
+  //pronomes de monstros e objetos
 
-
-  let monsterPronoun;
-  switch (fighting) {
-    case 0:
-      monsterPronoun = "O ";
-      break;
-    case 1:
-      monsterPronoun = "A ";
-      break;
-    case 2:
-      monsterPronoun = "O ";
-      break;
-  }
-
-  
-  //pronome das armas
-  //poderia ter utilizado o if, deixaria o código mais curto. Porém, nesse caso, fica mais intuitivo com o switch.
-
-  let weaponPronoun;
-  switch (currentWeapon) {
-    case 0:
-      weaponPronoun = "seu ";
-      break;
-    case 1:
-      weaponPronoun = "sua ";
-      break;
-    case 2:
-      weaponPronoun = "seu ";
-      break;
-    case 3:
-      weaponPronoun = "sua ";
-      break;
-  }
+  let weaponPronoun = pronounObject(currentWeapon);
+  let monsterPronoun = pronounSubject(monsters.fighting);
 
   text.innerText = monsterPronoun + monsters[fighting].name + " ataca! ";
   text.innerText += "Você ataca com " + weaponPronoun + weapons[currentWeapon].name + ".";
@@ -244,28 +213,7 @@ function attack() {
     }
   }
   if (Math.random() <= .1 && inventory.length !== 1) {
-
-    //procurarei uma solução melhor que deixará o codigo mais limpo e organizado do que o switch
-    //porém, é apenas a primeira adaptação, deixarei com o switch para facilitar a leitura
-
-    switch (currentWeaponweapons){
-      case (weapons[currentWeapon] = 0):
-        text.innerText += " Seu " + inventory.pop() + " quebrou.";
-      break;
-      
-      case (weapons[currentWeapon] = 1):
-        text.innerText += " Sua " + inventory.pop() + " quebrou.";
-      break;
-      
-      case (weapons[currentWeapon] = 2):
-        text.innerText += " Seu " + inventory.pop() + " quebrou.";
-      break;
-      
-      case (weapons[currentWeapon] = 3):
-        text.innerText += " Sua " + inventory.pop() + " quebrou.";
-      break;
-  
-    }
+    text.innerText += weaponPronoun + " " + inventory.pop() + " quebrou."; 
     currentWeapon--;
   }
 }
@@ -273,7 +221,7 @@ function attack() {
 function getMonsterAttackValue(level) {
   const hit = (level * 5) - (Math.floor(Math.random() * xp));
   console.log(hit);
-  return hit > 0 ? hit : Math.random();
+  return hit > 0 ? hit : Math.floor(Math.random());
 }
 
 function isMonsterHit() {
@@ -345,5 +293,25 @@ function pick(guess) {
     if (health <= 0) {
       lose();
     }
+  }
+}
+
+function pronounObject(weaponNumber){
+  
+  if(weaponNumber % 2 == 0){
+      return "seu";
+  }
+  else{
+      return "sua";
+  }
+}
+
+function pronounSubject(monsterNumber){
+  
+  if(monsterNumber % 2 == 0){
+      return "O";
+  }
+  else{
+      return "A";
   }
 }
